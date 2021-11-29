@@ -26,6 +26,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
+		dateA = LocalDate.now();
+		dateD = null;
 	}
 	
 	/**
@@ -182,4 +184,15 @@ public class Employe implements Serializable, Comparable<Employe>
 			res += ligue.toString();
 		return res + ")";
 	}
+	
+	public void setDateA(LocalDate date)
+	{
+		this.dateA = date;
+	}
+	
+	public void setDateD(LocalDate date)
+	{
+		this.dateD = date;
+	}
+	
 }
