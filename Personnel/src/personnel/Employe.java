@@ -185,14 +185,25 @@ public class Employe implements Serializable, Comparable<Employe>
 		return res + ")";
 	}
 	
-	public void setDateA(LocalDate date)
+	public void setDateA(int an, int mois, int jour) throws SauvegardeImpossible 
 	{
-		this.dateA = date;
+		LocalDate date = LocalDate.of(an, mois, jour);
+		if(dateD != null)
+		{
+			if(date.isAfter(dateD))
+				throw new SauvegardeImpossible(null);
+		}
+		else
+			this.dateA = date;
 	}
 	
-	public void setDateD(LocalDate date)
+	public void setDateD(int an, int mois, int jour) throws SauvegardeImpossible
 	{
-		this.dateD = date;
+		LocalDate date = LocalDate.of(an, mois, jour);
+		if(date.isBefore(dateA))
+			throw new SauvegardeImpossible(null);
+		else
+			this.dateD = date;
 	}
 	
 	public LocalDate getDateA()
