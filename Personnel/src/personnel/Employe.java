@@ -195,4 +195,12 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.dateD = date;
 	}
 	
+	public LocalDate getDateA()
+	{
+		return dateA;
+	}
+	public LocalDate getDateD()
+	{
+		return dateD;
+	}
 }
