@@ -18,7 +18,7 @@ public class testEmploye {
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
 		ligue.setAdministrateur(employe);
-		assertEquals(true , employe.estAdmin(ligue) );
+		assertTrue(employe.estAdmin(ligue) );
 	}
 	
 	@Test
@@ -26,21 +26,21 @@ public class testEmploye {
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
-		assertEquals(false , employe.estAdmin(ligue) );
+		assertFalse(employe.estAdmin(ligue) );
 	}
 	@Test
 	void estRootFalse() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
-		assertEquals(false, employe.estRoot());
+		assertFalse(employe.estRoot());
 	}
 	
 	@Test
 	void estRootTrue() throws SauvegardeImpossible
 	{
 		Employe root = gestionPersonnel.getRoot();
-		assertEquals(true, root.estRoot());
+		assertTrue(root.estRoot());
 	}
 	
 	@Test 
@@ -76,7 +76,7 @@ public class testEmploye {
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty");
 		employe.setPassword("password");
-		assertEquals(true, employe.checkPassword("password"));
+		assertTrue(employe.checkPassword("password"));
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class testEmploye {
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty");
 		employe.remove();
-		assertEquals(false, ligue.getEmployes().contains(employe));
+		assertFalse(ligue.getEmployes().contains(employe));
 	}
 	
 	@Test
@@ -95,7 +95,7 @@ public class testEmploye {
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty");
 		ligue.setAdministrateur(employe);
 		employe.remove();
-		assertEquals(false, ligue.getEmployes().contains(employe));
+		assertFalse(ligue.getEmployes().contains(employe));
 	}
 	
 	@Test
