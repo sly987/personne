@@ -47,7 +47,7 @@ class testLigue
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
-		ligue.remove(employe);
+		employe.remove();
 		assertFalse(ligue.getEmployes().contains(employe));
 	}
 	@Test

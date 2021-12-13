@@ -192,6 +192,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		{
 			if(date.isAfter(dateD))
 				throw new SauvegardeImpossible(null);
+			else
+				this.dateA = date;
 		}
 		else
 			this.dateA = date;
