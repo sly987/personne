@@ -48,7 +48,7 @@ class testLigue
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
 		ligue.remove(employe);
-		assertEquals(false, ligue.getEmployes().contains(employe));
+		assertFalse(ligue.getEmployes().contains(employe));
 	}
 	@Test
 	void setAdminException() throws SauvegardeImpossible
@@ -64,7 +64,7 @@ class testLigue
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		ligue.remove();
-		assertEquals(false, gestionPersonnel.getLigues().contains(ligue));
+		assertFalse(gestionPersonnel.getLigues().contains(ligue));
 	}
 	
 	
