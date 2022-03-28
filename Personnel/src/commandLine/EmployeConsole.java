@@ -1,11 +1,13 @@
 package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
+import static commandLineMenus.rendering.examples.util.InOut.getInt;
 
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import personnel.Employe;
+import personnel.SauvegardeImpossible;
 
 public class EmployeConsole 
 {
@@ -27,6 +29,8 @@ public class EmployeConsole
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
+			menu.add(changerDateArrivee(employe));
+			menu.add(changerDateDepart(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -53,5 +57,30 @@ public class EmployeConsole
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
 	
-
+	private Option changerDateArrivee(final Employe employe)
+	{
+		return new Option("Changer la date d'arrivée", "a", () -> {
+			try
+			{
+				employe.setDateA(getInt("Nouvelle année : "), getInt("Nouveau mois : "),getInt("Nouveau jour : ") );
+			}
+			catch(SauvegardeImpossible e)
+			{
+				System.err.println("erreur sur saisie des dates ");
+			}
+		});
+	}
+	private Option changerDateDepart(final Employe employe) 
+	{
+		return new Option("Changer le date de départ", "d", () -> {	
+			try
+			{
+				employe.setDateA(getInt("Nouvelle année : "), getInt("Nouveau mois : "),getInt("Nouveau jour : ") );
+			}
+			catch(SauvegardeImpossible e)
+			{
+				System.err.println("erreur sur saisie des dates ");
+			}
+			});
+	}
 }
