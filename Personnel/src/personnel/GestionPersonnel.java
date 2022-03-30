@@ -20,6 +20,7 @@ public class GestionPersonnel implements Serializable
 	private static final long serialVersionUID = -105283113987886425L;
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
+	private SortedSet<Employe> employes;
 	private Employe root = new Employe(this, null, "root", "", "", "toor");
 	public final static int SERIALIZATION = 1, JDBC = 2, 
 			TYPE_PASSERELLE = JDBC;  
@@ -78,6 +79,11 @@ public class GestionPersonnel implements Serializable
 	public SortedSet<Ligue> getLigues()
 	{
 		return Collections.unmodifiableSortedSet(ligues);
+	}
+	
+	public SortedSet<Employe> getEmployes()
+	{
+		return Collections.unmodifiableSortedSet(employes);
 	}
 
 	public Ligue addLigue(String nom) throws SauvegardeImpossible
