@@ -3,6 +3,7 @@ package personnel;
 public interface Passerelle 
 {
 	public GestionPersonnel getGestionPersonnel();
+	public GestionPersonnel getAdministrateur();
 	public void sauvegarderGestionPersonnel(GestionPersonnel gestionPersonnel)  throws SauvegardeImpossible;
 	public int insert(Ligue ligue) throws SauvegardeImpossible;
 	public void updateLigue(Ligue ligue) throws SauvegardeImpossible; 

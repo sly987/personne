@@ -50,6 +50,25 @@ public class JDBC implements Passerelle
 		}
 		return gestionPersonnel;
 	}
+	
+	@Override
+	public GestionPersonnel getAdministrateur() 
+	{
+		GestionPersonnel gestionPersonnel = new GestionPersonnel();
+		try 
+		{
+			String requete = "select * from employe";
+			Statement instruction = connection.createStatement();
+			ResultSet ligues = instruction.executeQuery(requete);
+			while (employes.next()) // régler l'erreur
+				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
+		}
+		catch (SQLException e)
+		{
+			System.out.println(e);
+		}
+		return gestionPersonnel;
+	}
 
 	@Override
 	public void sauvegarderGestionPersonnel(GestionPersonnel gestionPersonnel) throws SauvegardeImpossible 
