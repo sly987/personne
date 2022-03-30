@@ -1,7 +1,8 @@
 package personnel;
 import java.time.LocalDate;
 import java.io.Serializable;
-
+import java.util.SortedSet;
+import java.util.TreeSet;
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
  * être administrateurs des employés de leur ligue.
@@ -16,7 +17,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
+	private SortedSet<Employe> employes;
 	private LocalDate dateA, dateD;
+	private int id;
 	
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
 	{
@@ -28,6 +31,13 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.ligue = ligue;
 		dateA = LocalDate.now();
 		dateD = null;
+	}
+	
+	public Employe(GestionPersonnel gestionPersonnel, int id, String nom) {
+		this.nom = nom;
+		employes = new TreeSet<>();
+		this.gestionPersonnel = gestionPersonnel;
+		this.id = id;
 	}
 	
 	/**
@@ -127,6 +137,13 @@ public class Employe implements Serializable, Comparable<Employe>
 		return this.password.equals(password);
 	}
 
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	
 	/**
 	 * Change le password de l'employé.
 	 * @param password le nouveau password de l'employé. 
@@ -215,5 +232,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	public LocalDate getDateD()
 	{
 		return dateD;
+	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

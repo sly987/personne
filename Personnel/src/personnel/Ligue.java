@@ -19,7 +19,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	private int id = -1;
 	private String nom;
 	private SortedSet<Employe> employes;
-	private Employe administrateur;
+	private Employe administrateur=null;
 	private GestionPersonnel gestionPersonnel;
 	
 	/**
@@ -141,5 +141,20 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public String toString()
 	{
 		return nom;
+	}
+	
+	public void update()
+	{
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public int getId()
+	{
+		return id;
 	}
 }
