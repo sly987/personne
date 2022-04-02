@@ -120,6 +120,19 @@ public class GestionPersonnel implements Serializable
 		return root;
 	}
 	
+	public Employe addEmploye(int id, String nom) throws SauvegardeImpossible
+	{
+		Employe employe = new Employe(this, id, nom);
+		employes.add(employe);
+		passerelle.insert(employe);
+		return employe;
+	}
+	
+	int insert(Employe employe) throws SauvegardeImpossible
+	{
+		return passerelle.insert(employe);
+	}
+	
 	void update(Employe employe, String string) throws SauvegardeImpossible
 	{
 		passerelle.updateEmploye(employe, string);
