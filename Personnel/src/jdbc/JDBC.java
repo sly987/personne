@@ -50,25 +50,6 @@ public class JDBC implements Passerelle
 		}
 		return gestionPersonnel;
 	}
-	
-	@Override
-	public GestionPersonnel getAdministrateur() 
-	{
-		GestionPersonnel gestionPersonnel = new GestionPersonnel();
-		try 
-		{
-			String requete = "select * from employe";
-			Statement instruction = connection.createStatement();
-			ResultSet ligues = instruction.executeQuery(requete);
-			while (employes.next()) // régler l'erreur
-				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
-		}
-		catch (SQLException e)
-		{
-			System.out.println(e);
-		}
-		return gestionPersonnel;
-	}
 
 	@Override
 	public void sauvegarderGestionPersonnel(GestionPersonnel gestionPersonnel) throws SauvegardeImpossible 
@@ -180,7 +161,6 @@ public class JDBC implements Passerelle
 			instruction2.setString(3, employe.getMail());
 			instruction2.setString(4, employe.getPassword());
 			instruction2.setString(5, employe.getDateA() == null ? null :  String.valueOf(employe.getDateA()));
-			instruction2.setInt(6, employe.getLigue().getId());
 			instruction2.executeUpdate();
 			ResultSet id = instruction2.getGeneratedKeys();
 			id.next();
@@ -217,4 +197,155 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(e);
 		}
 	}
+	
+	@Override
+	public void SetAdmin(Employe employe) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement listEmploye;
+			listEmploye = connection.prepareStatement("UPDATE Ligue SET LAdmin = ? WHERE id = ? AND idEmploye = ?");
+			listEmploye.setInt(1, 1);
+			listEmploye.setInt(2, employe.getLigue().getId());
+			listEmploye.setInt(3, employe.getId());
+			listEmploye.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
+	
+	public void setRoot() 
+	{
+		try {
+			
+			Statement instruction = connection.createStatement();
+			String requete = "INSERT INTO employe (NomEmploye, PrenomEmploye, Mail, mdp, IsRoot) VALUES (root,root,root@root.fr,toor,1)";
+			instruction.executeUpdate(requete);
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void updateRoot(Employe employe) throws SauvegardeImpossible
+	{
+		try {
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("UPDATE employe SET NomEmploye = ?, PrenomEmploye = ?, Mail = ?, mdp = ? WHERE IsRoot = 1");
+			instruction.setString(1, employe.getNom());
+			instruction.setString(2, employe.getPrenom());
+			instruction.setString(3, employe.getMail());
+			instruction.setString(4, employe.getPassword());
+			instruction.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
+	@Override
+	public void removeAdmin(Ligue ligue) throws SauvegardeImpossible
+	{
+		try
+		{
+			PreparedStatement tableEmploye;
+			tableEmploye = connection.prepareStatement("UPDATE Ligue SET LAdmin = null WHERE Id = ?");
+			tableEmploye.setInt(1, ligue.getId());
+			tableEmploye.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			throw new SauvegardeImpossible(e);
+		}
+	}
+	
+	public void setAdmin(Employe employe) throws SauvegardeImpossible
+	{
+		try 
+		{
+			PreparedStatement tableEmploye;
+			tableEmploye = connection.prepareStatement("UPDATE Ligue SET LAdmin = (CASE WHEN IdEmploye = ? THEN 1 WHEN IdEmploye <> ? THEN null END) WHERE Id = ?");
+			tableEmploye.setInt(1, employe.getId());
+			tableEmploye.setInt(2, employe.getId());
+			tableEmploye.setInt(3, employe.getLigue().getId());
+			tableEmploye.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
+			throw new SauvegardeImpossible(e);
+		}
+	}
+	
+	public Employe getSuperAdmin() throws SauvegardeImpossible
+	{
+		try {
+			Statement intruction = connection.createStatement();
+			String requete = "SELECT * FROM employe WHERE IsRoot = 1";
+			ResultSet response = intruction.executeQuery(requete);
+			if(!response.next()) {
+				setRoot();
+				getSuperAdmin();
+			}
+		    return getGestionPersonnel().getRoot();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
+	
+	
+	
+	public Employe getAdmin(Ligue ligue) throws SauvegardeImpossible
+	{
+		try {
+			PreparedStatement intruction;
+			intruction = connection.prepareStatement("SELECT * FROM employe WHERE IdEmploye = ?");
+			intruction.setInt(1, (ligue.getAdministrateur()).getId());
+			ResultSet response = intruction.executeQuery();
+			if(!response.next()) {
+				getSuperAdmin();
+			}
+			else {
+				String nom = response.getString("NomEmploye");
+				String prenom = response.getString("PrenomEmploye");
+				String mail =  response.getString("Mail");
+			    String password = response.getString("mdp");
+			    admin.setNom(nom);
+			    admin.setPrenom(prenom);
+			    admin.setMail(mail);
+			    admin.setPassword(password);
+			}
+		    return admin;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
+
+	@Override
+	public void deleteEmploye(Employe employe) throws SauvegardeImpossible 
+	{	
+		try
+		{
+			PreparedStatement listEmploye;
+			listEmploye = connection.prepareStatement("DELETE FROM employe WHERE idEmploye = ?");
+			listEmploye.setInt(1, employe.getId());
+			listEmploye.executeUpdate();
+			System.out.println("Employe " + employe.getNom() + " supprimé");
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+		
+	}
 }
+
