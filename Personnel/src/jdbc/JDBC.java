@@ -308,10 +308,12 @@ public class JDBC implements Passerelle
 			intruction = connection.prepareStatement("SELECT * FROM employe WHERE IdEmploye = ?");
 			intruction.setInt(1, (ligue.getAdministrateur()).getId());
 			ResultSet response = intruction.executeQuery();
+			Employe admin = new Employe();
 			if(!response.next()) {
-				getSuperAdmin();
+				admin=getSuperAdmin();
 			}
 			else {
+				
 				String nom = response.getString("NomEmploye");
 				String prenom = response.getString("PrenomEmploye");
 				String mail =  response.getString("Mail");

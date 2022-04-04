@@ -39,6 +39,10 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.gestionPersonnel = gestionPersonnel;
 		this.id = id;
 	}
+	public Employe()
+	{
+
+	}
 	
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 

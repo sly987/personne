@@ -11,10 +11,10 @@ public interface Passerelle
 	public void setAdmin(Employe employe)  throws SauvegardeImpossible;
 	public void updateLigue(Ligue ligue) throws SauvegardeImpossible;
 	public void updateEmploye(Employe employe, String string) throws SauvegardeImpossible;
-	public Employe getSuperAdmin(Employe root) throws SauvegardeImpossible;
+	public Employe getSuperAdmin() throws SauvegardeImpossible;
 	public void updateEmp(Employe employe) throws SauvegardeImpossible;
 	void SetAdmin(Employe employe) throws SauvegardeImpossible;
     void updateRoot(Employe employe) throws SauvegardeImpossible;
-	public void setRoot(Employe employe);
+	public void setRoot();
 	void removeAdmin(Ligue ligue) throws SauvegardeImpossible;
 }

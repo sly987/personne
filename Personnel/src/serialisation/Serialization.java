@@ -95,7 +95,7 @@ public class Serialization implements personnel.Passerelle
 	}
 
 	@Override
-	public Employe getSuperAdmin(Employe root) throws SauvegardeImpossible {
+	public Employe getSuperAdmin() throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -113,7 +113,7 @@ public class Serialization implements personnel.Passerelle
 	}
 
 	@Override
-	public void setRoot(Employe employe) {
+	public void setRoot() {
 		// TODO Auto-generated method stub
 		
 	}
