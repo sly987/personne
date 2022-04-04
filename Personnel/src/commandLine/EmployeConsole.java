@@ -1,12 +1,18 @@
 package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
+
+import java.util.ArrayList;
+
+import commandLineMenus.List;
+
 import static commandLineMenus.rendering.examples.util.InOut.getInt;
 
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import personnel.Employe;
+import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
 public class EmployeConsole 
@@ -31,6 +37,7 @@ public class EmployeConsole
 			menu.add(changerPassword(employe));
 			menu.add(changerDateArrivee(employe));
 			menu.add(changerDateDepart(employe));
+			menu.add(supprimerEmploye(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -83,4 +90,11 @@ public class EmployeConsole
 			}
 			});
 	}
+	private Option supprimerEmploye(final Employe employe)
+	{
+		return new Option("Supprimer l'employé", "s", 
+				() -> {employe.remove();}
+				);
+	}
 }
+
